@@ -1,0 +1,103 @@
+@charset "UTF-8";
+//===Mazorca Core===//
+@import 'node_modules/mazorca-core/_mazorca-core.scss';
+
+//===Configs===//
+@import 'mazorca/config/_config';
+@import './colors';
+//===Vendor===//Css begins compling here
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+// @import "vendor/bootstrap/_bootstrap.scss";
+
+//===Mazorca===//
+@import 'mazorca/_elements';
+@import 'mazorca/_grid'; //
+@import 'mazorca/_components';
+@import 'mazorca/_theme-helpers';
+@import 'mazorca/_modules';
+
+body {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // text-align: center;
+  color: $main;
+  line-height: 1.2;
+  font-weight: 100;
+}
+
+h1 {
+  font-size: 30px;
+  // font-weight: bold;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 23px;
+  margin-bottom: 20px;
+  // font-weight: bold;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 30px;
+  // font-weight: normal;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.body-padding {
+  padding: 0 16px;
+  padding-bottom: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#nav-desktop {
+  padding: 30px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-around;
+
+  & .main-nav {
+    a {
+      font-weight: normal;
+    }
+  }
+
+  @include under(500px) {
+    align-items: center;
+    flex-direction: column;
+    padding-top: 16px;
+
+    & .main-nav {
+      padding-top: 5px;
+      font-size: 16px;
+    }
+  }
+}
+
+a {
+  font-weight: bold;
+  color: $main;
+
+  &:hover {
+    color: $main-light;
+  }
+
+  &.router-link-exact-active,
+  &.selected {
+    color: $green;
+  }
+}
+
+.banner {
+  height: 100px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 40px;
+}

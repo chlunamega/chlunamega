@@ -1,0 +1,60 @@
+.input {
+  &-container {
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    padding-bottom: 25px;
+  }
+  height: 40px;
+  border: none;
+  font-size: 16px;
+  border: 1px solid transparent;
+  @include placeholder(grey);
+  &--error {
+    border-color: $red !important;
+  }
+  &-error-msg {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    color: $red;
+    font-size: 14px;
+    padding-left: 10px;
+    white-space: nowrap;
+  }
+}
+
+.btn {
+  border: none;
+  border-radius: 2px;
+  background-color: $dark-blue;
+  color: $white;
+  font-size: 16px;
+  padding: 5px 26px;
+  width: 200px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: lighten($dark-blue, 2%);
+  }
+}
+
+.label {
+  font-size: 16px;
+  color: $grey;
+  &::selection {
+    background-color: transparent;
+  }
+}
+
+.checkbox {
+  position: relative;
+  top: 1px;
+  height: 14px !important;
+  width: 14px !important;
+  margin-right: 8px;
+  &--sm {
+    height: 10px !important;
+    width: 10px !important;
+  }
+}
