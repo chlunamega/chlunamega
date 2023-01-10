@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [16]
 
     steps:
       - name: Checkout
@@ -21,10 +21,14 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: yarn
+        run: npm install
+
+      - name: Install scss deps
+        working-directory: ./scss
+        run: npm install
 
       - name: Generate
-        run: yarn generate
+        run: npm run generate
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
