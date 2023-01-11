@@ -28,6 +28,7 @@ const makeOpenGraphMeta = (openGraphData) => [
   { property: 'og:title', content: openGraphData.title },
   { property: 'og:description', content: openGraphData.description },
   { property: 'og:image', content: openGraphData.image.url },
+  { property: 'og:image:type', content: 'image/jpeg' },
   { property: 'og:image:width', content: openGraphData.image.width },
   { property: 'og:image:height', content: openGraphData.image.height },
 ]
