@@ -1,12 +1,15 @@
 <script>
 import * as R from 'ramda'
 import log from 'tap-logger' //eslint-disable-line
+import { attr } from '~/helpers'
+import { makeSingleHead } from '~/seo'
 
 export default {
   name: 'SingleA',
   props: [
     'apiCall', // String
     'contentName', // String
+    'indexPath', // String
     'getMedia',
     'pdfName', // String
     'pdfNamePlural', // String
@@ -16,10 +19,20 @@ export default {
       quality: 'mp3', // 'aiff' || 'mp3'
     }
   },
-
+  async fetch() {
+    await this.$store.dispatch(this.apiCall)
+  },
+  fetchOnServer: true,
+  head() {
+    return makeSingleHead(
+      this,
+      this.currentContent,
+      this.media(this.currentContent, attr('image', this.currentContent))
+    )
+  },
   computed: {
     content() {
-      return this.$store.state[this.contentName]
+      return this.$store.getters.getContent(this.contentName)
     },
 
     mp3s() {
@@ -58,9 +71,6 @@ export default {
         'max-width': maxWidth_ + 'px',
       }
     },
-  },
-  mounted() {
-    // this.$store.dispatch(this.apiCall)
   },
 
   methods: {

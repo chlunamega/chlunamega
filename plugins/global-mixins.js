@@ -15,14 +15,7 @@ import log from 'tap-logger' //eslint-disable-line
 
 if (!Vue.__my_mixin__) {
   Vue.__my_mixin__ = true
-
   Vue.mixin({
-    data() {
-      return {
-        ghMedia: (slug, media) =>
-          `https://chlunamega.github.io/public/${slug}/${media}`,
-      }
-    },
     methods: {
       log,
       $SepartedStringIntoArr,

@@ -24,11 +24,11 @@ export default function createStore() {
       performances: [],
     },
     actions: {
-      getHomeConfig({ state, commit }) {
+      async getHomeConfig({ state, commit }) {
         if (notEmpty(state.homeConfig)) {
           return
         }
-        api
+        await api
           .homeConfig(this.$axios)
           .then(R.pathOr({}, [0, 'attributes']))
           .then(
@@ -36,15 +36,15 @@ export default function createStore() {
               images: $SepartedStringIntoArr,
             })
           )
-          .then(log)
+          // .then(log)
           .then((homeConfig) => commit('setHomeConfig', homeConfig))
           .catch(console.error)
       },
-      getWorksConfig({ state, commit }) {
+      async getWorksConfig({ state, commit }) {
         if (notEmpty(state.worksConfig)) {
           return
         }
-        api
+        await api
           .worksConfig(this.$axios)
           .then(R.pathOr({}, [0, 'attributes']))
           .then(
@@ -52,98 +52,102 @@ export default function createStore() {
               images: $SepartedStringIntoArr,
             })
           )
-          .then(log)
+          // .then(log)
           .then((worksConfig) => commit('setWorksConfig', worksConfig))
           .catch(console.error)
       },
-      getNewsConfig({ state, commit }) {
+      async getNewsConfig({ state, commit }) {
         if (notEmpty(state.newsConfig)) {
           return
         }
-        api
+        await api
           .newsConfig(this.$axios)
           .then(R.pathOr({}, [0, 'attributes']))
-          .then(log)
+          // .then(log)
           .then((config) => commit('setNewsConfig', config))
           .catch(console.error)
       },
-      getAbout({ state, commit }) {
+      async getAbout({ state, commit }) {
         if (notEmpty(state.about)) {
           return
         }
-        api
+        await api
           .about(this.$axios)
           .then(R.pathOr({}, [0]))
-          .then(log)
+          // .then(log)
           .then((About) => commit('setAbout', About))
           .catch(console.error)
       },
-      getCompositions({ state, commit }) {
+      async getCompositions({ state, commit }) {
         if (notEmpty(state.compositions)) {
           return
         }
         console.log('GGGGGGGG')
-        api
+        await api
           .compositions(this.$axios)
           .then((compositions) => commit('setCompositions', compositions))
           .catch(console.error)
       },
-      getNews({ state, commit }) {
+      async getNews({ state, commit }) {
         console.log('notEmpty(state.news) ', notEmpty(state.news))
         if (notEmpty(state.news)) {
           return
         }
-        api
+        await api
           .news(this.$axios)
           .then((news) => commit('setNews', news))
           .catch(console.error)
       },
-      getFieldRecordings({ state, commit }) {
-        if (notEmpty(state.fieldRecordings)) {
-          return
-        }
-        api
+      async getFieldRecordings({ state, commit }) {
+        // if (notEmpty(state.fieldRecordings)) {
+        //   return
+        // }
+        await api
           .fieldRecordings(this.$axios)
-          .then((fieldRecordings) =>
-            commit('setFieldRecordings', fieldRecordings)
-          )
+          .then((fieldRecordings) => {
+            // console.log(
+            //   '🚀 ~ file: index.js:112 ~ getFieldRecordings ~ fieldRecordings',
+            //   fieldRecordings
+            // )
+            return commit('setFieldRecordings', fieldRecordings)
+          })
           .catch(console.error)
       },
-      getAnalysis({ state, commit }) {
+      async getAnalysis({ state, commit }) {
         if (notEmpty(state.analysis)) {
           return
         }
-        api
+        await api
           .analysis(this.$axios)
-          .then(log)
+          // .then(log)
           .then((analysis) => commit('setAnalysis', analysis))
           .catch(console.error)
       },
-      getImprovisations({ state, commit }) {
+      async getImprovisations({ state, commit }) {
         if (notEmpty(state.improvisations)) {
           return
         }
-        api
+        await api
           .improvisations(this.$axios)
-          .then(log)
+          // .then(log)
           .then((improvisations) => commit('setImprovisations', improvisations))
           .catch(console.error)
       },
-      getPerformances({ state, commit }) {
+      async getPerformances({ state, commit }) {
         if (notEmpty(state.peformances)) {
           return
         }
-        api
+        await api
           .performances(this.$axios)
-          .then(log)
+          // .then(log)
           .then((performances) => commit('setPerformances', performances))
           .catch(console.error)
       },
-      getCompositionsArchiveConfig({ state, commit }) {
+      async getCompositionsArchiveConfig({ state, commit }) {
         if (notEmpty(state.compositionsArchiveConfig)) {
           return
         }
-        api
+        await api
           .compositionsArchiveConfig(this.$axios)
           .then((config) => {
             commit(
@@ -153,6 +157,9 @@ export default function createStore() {
           })
           .catch(console.error)
       },
+    },
+    getters: {
+      getContent: (state) => (contentName) => state[contentName],
     },
     mutations: {
       setHomeConfig(state, homeConfig) {

@@ -16,6 +16,7 @@ div
   the-menu
   single-a(apiCall="getAnalysis"
            contentName='analysis'
+           indexPath="https://christopherlunamega.com/analysis"
            pdfName='Analysis'
            pdfNamePlural='Analysis'
            :getMedia="getMedia")  

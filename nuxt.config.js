@@ -1,5 +1,5 @@
 import generate from './static-site-generation'
-import { makeOpenGraphMeta } from './seo'
+import { makeOpenGraphMeta, openGraphData } from './seo'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -23,7 +23,6 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'application-name', content: 'Christopher Luna Mega' },
-      { name: 'twitter:card', content: 'summary' },
       ...makeOpenGraphMeta(openGraphData),
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

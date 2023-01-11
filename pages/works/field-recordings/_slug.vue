@@ -1,6 +1,7 @@
 <script>
 import * as R from 'ramda'
 import { getFiledRecordingsMedia } from '../../../helpers'
+
 export default {
   methods: {
     getMedia: (currentContent, fileName) =>
@@ -17,6 +18,7 @@ div
   single-a(
     apiCall='getFieldRecordings'
     contentName='fieldRecordings'
+    indexPath="https://christopherlunamega.com/field-recordings"
     pdfName='Documentation'
     pdfNamePlural='Documentation'
     :getMedia="getMedia"
