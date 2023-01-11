@@ -10,12 +10,13 @@ const seoBase = {
   },
 }
 
+const url = 'https://diegovdc.github.io/chlunamega'
 const openGraphData = {
-  url: 'https://christopherlunamega.com',
+  url,
   title: seoBase.title,
   description: seoBase.description,
   image: {
-    url: seoBase.image.url,
+    url: url + seoBase.image.url,
     width: seoBase.image.width,
     height: seoBase.image.height,
   },
@@ -28,7 +29,6 @@ const makeOpenGraphMeta = (openGraphData) => [
   { property: 'og:title', content: openGraphData.title },
   { property: 'og:description', content: openGraphData.description },
   { property: 'og:image', content: openGraphData.image.url },
-  { property: 'og:image:type', content: 'image/jpeg' },
   { property: 'og:image:width', content: openGraphData.image.width },
   { property: 'og:image:height', content: openGraphData.image.height },
 ]
