@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import Vue from 'vue'
 import Vuex from 'vuex'
-import log from 'tap-logger'
+// import log from 'tap-logger'
 import api from '../api'
 import { $SepartedStringIntoArr } from '../helpers'
 Vue.use(Vuex)
@@ -98,17 +98,13 @@ export default function createStore() {
           .then((news) => commit('setNews', news))
           .catch(console.error)
       },
-      async getFieldRecordings({ state, commit }) {
-        // if (notEmpty(state.fieldRecordings)) {
-        //   return
-        // }
+      async getFieldRecordings({ commit }) {
+        if (notEmpty(state.fieldRecordings)) {
+          return
+        }
         await api
           .fieldRecordings(this.$axios)
           .then((fieldRecordings) => {
-            // console.log(
-            //   '🚀 ~ file: index.js:112 ~ getFieldRecordings ~ fieldRecordings',
-            //   fieldRecordings
-            // )
             return commit('setFieldRecordings', fieldRecordings)
           })
           .catch(console.error)

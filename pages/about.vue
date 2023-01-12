@@ -2,9 +2,10 @@
 import { mapState } from 'vuex'
 import { getAboutMedia } from '@/helpers'
 export default {
-  mounted() {
-    this.$store.dispatch('getAbout')
+  async fetch() {
+    await this.$store.dispatch('getAbout')
   },
+  fetchOnServer: true,
   computed: {
     ...mapState(['about']),
     image() {

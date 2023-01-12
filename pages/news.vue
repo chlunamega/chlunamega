@@ -21,7 +21,7 @@ export default {
       )(this.news)
     },
     banner() {
-      let img = R.path(['banner'], this.newsConfig)
+      const img = R.path(['banner'], this.newsConfig)
       return img
         ? {
             'background-image': `url(${this.getNewsMedia2(img)})`,

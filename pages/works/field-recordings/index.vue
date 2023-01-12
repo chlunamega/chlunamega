@@ -1,20 +1,16 @@
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import * as R from 'ramda'
-import log from 'tap-logger'
 
 export default {
-  mounted() {
-    this.$store.dispatch('getFieldRecordings')
-    this.$store.dispatch('getWorksConfig')
-
-    // this.$store.dispatch('getFieldRecordingsArchiveConfig')
+  async fetch() {
+    await Promise.all([
+      this.$store.dispatch('getFieldRecordings'),
+      this.$store.dispatch('getWorksConfig'),
+      // this.$store.dispatch('getFieldRecordingsArchiveConfig')
+    ])
   },
-
-  methods: {
-    attr: (attr, obj) => R.path(['attributes', attr], obj),
-  },
-
+  fetchOnServer: true,
   computed: {
     ...mapState([
       'fieldRecordings',
@@ -35,12 +31,12 @@ export default {
     },
 
     sortedCategories() {
-      let cats = R.keys(this.recordingsByCategory)
-      let knownCats = R.pipe(
+      const cats = R.keys(this.recordingsByCategory)
+      const knownCats = R.pipe(
         R.propOr('', 'order'),
         this.$SepartedStringIntoArr
       )(this.compositionsArchiveConfig)
-      let unknownCats = R.pipe(
+      const unknownCats = R.pipe(
         R.difference(cats),
         R.sort((a, b) => (a > b ? 1 : -1))
       )(knownCats)
@@ -48,12 +44,15 @@ export default {
       return knownCats.concat(unknownCats)
     },
     banner() {
-      let img = R.path(['field_recording_banner'], this.worksConfig)
+      const img = R.path(['field_recording_banner'], this.worksConfig)
       return img
         ? {
             'background-image': `url(${this.getWorksMedia(img)})`,
           }
         : null
+    },
+    methods: {
+      attr: (attr, obj) => R.path(['attributes', attr], obj),
     },
   },
 }

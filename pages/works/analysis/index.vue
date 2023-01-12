@@ -1,19 +1,14 @@
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import * as R from 'ramda'
-import log from 'tap-logger'
 
 export default {
-  mounted() {
-    this.$store.dispatch('getAnalysis')
-    this.$store.dispatch('getCompositionsArchiveConfig')
-    this.$store.dispatch('getWorksConfig')
+  async fetch() {
+    await this.$store.dispatch('getAnalysis')
+    await this.$store.dispatch('getCompositionsArchiveConfig')
+    await this.$store.dispatch('getWorksConfig')
   },
-
-  methods: {
-    attr: (attr, obj) => R.path(['attributes', attr], obj),
-  },
-
+  fetchOnServer: true,
   computed: {
     ...mapState(['analysis', 'worksConfig', 'compositionsArchiveConfig']),
     sortedAnalysis() {
@@ -30,12 +25,12 @@ export default {
     },
 
     sortedCategories() {
-      let cats = R.keys(this.sortedAnalysis)
-      let knownCats = R.pipe(
+      const cats = R.keys(this.sortedAnalysis)
+      const knownCats = R.pipe(
         R.propOr('', 'order'),
         this.$SepartedStringIntoArr
       )(this.compositionsArchiveConfig)
-      let unknownCats = R.pipe(
+      const unknownCats = R.pipe(
         R.difference(cats),
         R.sort((a, b) => (a > b ? 1 : -1))
       )(knownCats)
@@ -44,13 +39,16 @@ export default {
     },
 
     banner() {
-      let img = R.path(['analysis_banner'], this.worksConfig)
+      const img = R.path(['analysis_banner'], this.worksConfig)
       return img
         ? {
             'background-image': `url(${this.getWorksMedia(img)})`,
           }
         : null
     },
+  },
+  methods: {
+    attr: (attr, obj) => R.path(['attributes', attr], obj),
   },
 }
 </script>

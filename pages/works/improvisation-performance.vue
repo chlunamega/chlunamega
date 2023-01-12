@@ -1,24 +1,20 @@
 <script>
 import { mapState } from 'vuex'
 import * as R from 'ramda'
-import log from 'tap-logger'
 import { getPublicMedia } from '../../helpers'
 
 const getMedia = getPublicMedia('improvisation-performance')
 
 export default {
-  mounted() {
-    this.$store.dispatch('getImprovisations')
-    this.$store.dispatch('getPerformances')
-    this.$store.dispatch('getCompositionsArchiveConfig')
-    this.$store.dispatch('getWorksConfig')
+  async fetch() {
+    await Promise.all([
+      this.$store.dispatch('getImprovisations'),
+      this.$store.dispatch('getPerformances'),
+      this.$store.dispatch('getCompositionsArchiveConfig'),
+      this.$store.dispatch('getWorksConfig'),
+    ])
   },
-
-  methods: {
-    getMedia,
-    attr: (attr, obj) => R.path(['attributes', attr], obj),
-  },
-
+  fetchOnServer: true,
   computed: {
     ...mapState([
       'improvisations',
@@ -29,11 +25,11 @@ export default {
     sortedData() {
       return R.pipe(
         (improvs, perfs) => {
-          let improvs_ = R.map(
+          const improvs_ = R.map(
             R.assocPath(['attributes', 'category'], 'Improvisation'),
             improvs
           )
-          let perfs_ = R.map(
+          const perfs_ = R.map(
             R.assocPath(['attributes', 'category'], 'Performance'),
             perfs
           )
@@ -51,12 +47,12 @@ export default {
     },
 
     sortedCategories() {
-      let cats = R.keys(this.sortedAnalysis)
-      let knownCats = R.pipe(
+      const cats = R.keys(this.sortedAnalysis)
+      const knownCats = R.pipe(
         R.propOr('', 'order'),
         this.$SepartedStringIntoArr
       )(this.compositionsArchiveConfig)
-      let unknownCats = R.pipe(
+      const unknownCats = R.pipe(
         R.difference(cats),
         R.sort((a, b) => (a > b ? 1 : -1))
       )(knownCats)
@@ -65,12 +61,16 @@ export default {
     },
 
     banner() {
-      let img = R.path(['performance_banner'], this.worksConfig)
+      const img = R.path(['performance_banner'], this.worksConfig)
       return img
         ? {
             'background-image': `url(${this.getWorksMedia(img)})`,
           }
         : null
+    },
+    methods: {
+      getMedia,
+      attr: (attr, obj) => R.path(['attributes', attr], obj),
     },
   },
 }

@@ -1,7 +1,6 @@
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import * as R from 'ramda'
-import log from 'tap-logger'
 import { attr } from '~/helpers'
 import { makeSingleHead } from '~/seo'
 
@@ -10,39 +9,23 @@ const ghMedia = (slug, media) =>
 
 export default {
   name: 'CompositionsSingle',
-  async fetch() {
-    await this.$store.dispatch('getCompositions')
-  },
-  fetchOnServer: true,
-  head() {
-    return makeSingleHead(
-      this,
-      this.currentComposition,
-      this.media(attr('image', this.currentComposition))
-    )
-  },
-
   data() {
     return {
       quality: 'mp3', // 'aiff' || 'mp3'
     }
   },
 
-  methods: {
-    attr: R.curry((attr, obj) => R.path(['attributes', attr], obj)),
-    media(media) {
-      return ghMedia(this.slug, media)
-    },
-    pdf(currentComposition) {
-      let compo = currentComposition
-      return `/media/${this.attr('slug', compo)}/${this.attr('pdf', compo)}.pdf`
-    },
-    has(attr) {
-      return R.path(['attributes', attr], this.currentComposition)
-    },
-    selectQuality(quality) {
-      this.quality = quality
-    },
+  async fetch() {
+    await this.$store.dispatch('getCompositions')
+  },
+  fetchOnServer: true,
+
+  head() {
+    return makeSingleHead(
+      this,
+      this.currentComposition,
+      this.media(attr('image', this.currentComposition))
+    )
   },
 
   computed: {
@@ -81,6 +64,21 @@ export default {
       )
     },
   },
+  methods: {
+    attr: R.curry((attr, obj) => R.path(['attributes', attr], obj)),
+    media(media) {
+      return ghMedia(this.slug, media)
+    },
+    pdf(currentComposition) {
+      return ghMedia(this.slug, this.attr('pdf', currentComposition)) + '.pdf'
+    },
+    has(attr) {
+      return R.path(['attributes', attr], this.currentComposition)
+    },
+    selectQuality(quality) {
+      this.quality = quality
+    },
+  },
 }
 </script>
 
@@ -99,15 +97,15 @@ div
 
     .audio(v-if="has('mp3') || has('aiff')") 
       
-      p.quality quality: 
-        span(v-if="has('mp3')"
-          :class="quality === 'mp3' ? 'selected' : ''" 
-          @click='selectQuality("mp3")'
-        ) mp3
-        span(v-if="has('aiff')" 
-          :class="quality === 'aiff' ? 'selected' : ''" 
-          @click='selectQuality("aiff")'
-        ) aiff
+      //- p.quality quality: 
+      //-   span(v-if="has('mp3')"
+      //-     :class="quality === 'mp3' ? 'selected' : ''" 
+      //-     @click='selectQuality("mp3")'
+      //-   ) mp3
+      //-   span(v-if="has('aiff')" 
+      //-     :class="quality === 'aiff' ? 'selected' : ''" 
+      //-     @click='selectQuality("aiff")'
+      //-   ) aiff
 
       div.audio-track(v-if="has('mp3') && quality === 'mp3'" v-for="mp3_ in mp3s")
         p.audio-description {{mp3_.description}}
