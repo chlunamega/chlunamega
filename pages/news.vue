@@ -1,13 +1,15 @@
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import * as R from 'ramda'
-import { attr } from '../helpers'
-export default {
-  mounted() {
-    this.$store.dispatch('getNews', this.$axios)
-    this.$store.dispatch('getNewsConfig', this.$axios)
-  },
 
+export default {
+  async fetch() {
+    await Promise.all([
+      this.$store.dispatch('getNews', this.$axios),
+      this.$store.dispatch('getNewsConfig', this.$axios),
+    ])
+  },
+  fetchOnServer: true,
   computed: {
     ...mapState(['news', 'newsConfig']),
 
