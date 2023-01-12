@@ -206,5 +206,9 @@ export default {
   max-width: 700px;
   width: 100%;
   margin: 0 auto 60px;
+  max-height: 500px;
+  img {
+    object-fit: contain;
+  }
 }
 </style>

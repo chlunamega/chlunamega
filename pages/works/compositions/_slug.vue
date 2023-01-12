@@ -59,6 +59,9 @@ export default {
     },
     currentComposition() {
       const slug = this.$route.params.slug
+      console.log(
+        R.find((c) => this.attr('slug', c) === slug, this.compositions)
+      )
       return (
         R.find((c) => this.attr('slug', c) === slug, this.compositions) || {}
       )
@@ -95,27 +98,13 @@ div
 
     .body(v-html='currentComposition.body')
 
-    .audio(v-if="has('mp3') || has('aiff')") 
-      
-      //- p.quality quality: 
-      //-   span(v-if="has('mp3')"
-      //-     :class="quality === 'mp3' ? 'selected' : ''" 
-      //-     @click='selectQuality("mp3")'
-      //-   ) mp3
-      //-   span(v-if="has('aiff')" 
-      //-     :class="quality === 'aiff' ? 'selected' : ''" 
-      //-     @click='selectQuality("aiff")'
-      //-   ) aiff
+    .video(v-if="has('youtube')")
+      iframe(width="560" height="315" :src='"https://www.youtube.com/embed/"+attr("youtube", currentComposition)' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="")
 
+    .audio(v-if="has('mp3') || has('aiff')") 
       div.audio-track(v-if="has('mp3') && quality === 'mp3'" v-for="mp3_ in mp3s")
         p.audio-description {{mp3_.description}}
         audio(controls :src="media(mp3_.mp3)")
-      
-      //- aiffs
-      //- div.audio-track(v-if="has('aiff') && quality === 'aiff'")
-      //-   p.audio-description {{mp3_.description}}
-      //-   audio(controls :src="attr('aiff', currentComposition)")
-      
 
     .score(v-if="has('pdf')") 
       p(v-if='pdfs.length === 1') View score:
@@ -141,6 +130,11 @@ div
 }
 .main-image {
   margin-bottom: 40px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto 60px;
+  max-height: 500px;
+  object-fit: contain;
 }
 .audio {
   width: 100%;
@@ -175,5 +169,10 @@ div
 .score {
   font-size: 18px;
   text-align: center;
+}
+
+.video {
+  text-align: center;
+  margin-bottom: 40px;
 }
 </style>
