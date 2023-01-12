@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-prop-types -->
 <script>
 import * as R from 'ramda'
 import log from 'tap-logger' //eslint-disable-line

@@ -59,9 +59,6 @@ export default {
     },
     currentComposition() {
       const slug = this.$route.params.slug
-      console.log(
-        R.find((c) => this.attr('slug', c) === slug, this.compositions)
-      )
       return (
         R.find((c) => this.attr('slug', c) === slug, this.compositions) || {}
       )
