@@ -5,10 +5,10 @@ import { mapState } from 'vuex'
 import { getWorksMedia } from '@/helpers'
 
 export default {
-  mounted() {
-    this.$store.dispatch('getWorksConfig')
+  async fetch() {
+    await this.$store.dispatch('getWorksConfig')
   },
-
+  fetchOnServer: true,
   computed: {
     ...mapState(['worksConfig']),
     images() {
