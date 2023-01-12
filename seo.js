@@ -10,7 +10,7 @@ export const seoBase = {
   },
 }
 
-const url = 'https://diegovdc.github.io/chlunamega'
+const url = 'https://chlunamega.github.io/chlunamega'
 
 export const openGraphData = {
   url,
