@@ -5,7 +5,11 @@ import { mapState } from 'vuex'
 import { getHomeMedia } from '../helpers'
 
 export default {
-  name: 'home',
+  name: 'Home',
+  async fetch() {
+    await this.$store.dispatch('getHomeConfig')
+  },
+  fetchOnServer: true,
   computed: {
     ...mapState(['homeConfig']),
     img() {
@@ -15,9 +19,6 @@ export default {
       })(this)
       return img
     },
-  },
-  mounted() {
-    this.$store.dispatch('getHomeConfig')
   },
   methods: {
     getHomeMedia,

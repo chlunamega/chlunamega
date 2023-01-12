@@ -9,7 +9,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'chlunamega',
+    title: 'Christopher Luna-Mega | Composer',
     htmlAttrs: {
       lang: 'en',
     },
