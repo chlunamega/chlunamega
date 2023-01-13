@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as R from 'ramda'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -98,7 +99,7 @@ export default function createStore() {
           .then((news) => commit('setNews', news))
           .catch(console.error)
       },
-      async getFieldRecordings({ commit }) {
+      async getFieldRecordings({ state, commit }) {
         if (notEmpty(state.fieldRecordings)) {
           return
         }

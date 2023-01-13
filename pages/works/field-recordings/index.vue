@@ -51,9 +51,9 @@ export default {
           }
         : null
     },
-    methods: {
-      attr: (attr, obj) => R.path(['attributes', attr], obj),
-    },
+  },
+  methods: {
+    attr: (attr, obj) => R.path(['attributes', attr], obj),
   },
 }
 </script>

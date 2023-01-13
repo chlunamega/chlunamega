@@ -68,10 +68,10 @@ export default {
           }
         : null
     },
-    methods: {
-      getMedia,
-      attr: (attr, obj) => R.path(['attributes', attr], obj),
-    },
+  },
+  methods: {
+    getMedia,
+    attr: (attr, obj) => R.path(['attributes', attr], obj),
   },
 }
 </script>
