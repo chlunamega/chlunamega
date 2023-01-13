@@ -70,6 +70,8 @@ div
 .compo-image {
   max-width: 350px;
   margin-bottom: 16px;
+  max-height: 400px;
+  object-fit: contain;
 }
 .attribute {
   margin-bottom: 5px;
