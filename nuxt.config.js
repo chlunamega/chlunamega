@@ -25,7 +25,7 @@ export default {
       { name: 'application-name', content: 'Christopher Luna Mega' },
       ...makeOpenGraphMeta(openGraphData),
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/faviconREMOVED.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
